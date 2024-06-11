@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"monkey/ast"
-	"monkey/lexer"
+	"swagscript/ast"
+	"swagscript/lexer"
 	"testing"
 )
 

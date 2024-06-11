@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"monkey/token"
+	"swagscript/token"
 )
 
 type Lexer struct {

@@ -1,6 +1,6 @@
 package ast
 
-import "monkey/token"
+import "swagscript/token"
 
 type Node interface {
 	TokenLiteral() string

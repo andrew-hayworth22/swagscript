@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"monkey/ast"
-	"monkey/lexer"
-	"monkey/token"
+	"swagscript/ast"
+	"swagscript/lexer"
+	"swagscript/token"
 )
 
 type Parser struct {
