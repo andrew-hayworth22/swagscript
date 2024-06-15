@@ -287,7 +287,7 @@ func (p *Parser) parseFunctionLiteral() ast.Expression {
 		return nil
 	}
 
-	lit.Body = *p.parseBlockStatement()
+	lit.Body = p.parseBlockStatement()
 
 	return lit
 }
