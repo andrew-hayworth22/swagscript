@@ -35,6 +35,13 @@ func TestEvalIntegerExpression(t *testing.T) {
 	}
 }
 
+func TestStringConcatenation(t *testing.T) {
+	input := `"swagscript" + " = " + "goated"`
+
+	evaluated := testEval(input)
+	testStringObject(t, evaluated, "swagscript = goated")
+}
+
 func TestEvalBooleanExpression(t *testing.T) {
 	tests := []struct {
 		input    string
@@ -64,6 +71,20 @@ func TestEvalBooleanExpression(t *testing.T) {
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
 		testBooleanObject(t, evaluated, tt.expected)
+	}
+}
+
+func TestStringLiteral(t *testing.T) {
+	input := `"swagscript supremacy`
+
+	evaluated := testEval(input)
+	str, ok := evaluated.(*object.String)
+	if !ok {
+		t.Fatalf("object is not String. got=%T (%+v)", evaluated, evaluated)
+	}
+
+	if str.Value != "swagscript supremacy" {
+		t.Errorf("String has wrong value. got=%q", str.Value)
 	}
 }
 
@@ -199,6 +220,10 @@ if (10 > 1) {
 			"foobar",
 			"identifier not found: foobar",
 		},
+		{
+			`"Hello" - "World"`,
+			"unknown operator: STRING - STRING",
+		},
 	}
 
 	for _, tt := range tests {
@@ -296,6 +321,21 @@ func testIntegerObject(t *testing.T, obj object.Object, expected int64) bool {
 
 	if result.Value != expected {
 		t.Errorf("object has wrong value. got=%d, want=%d", result.Value, expected)
+		return false
+	}
+
+	return true
+}
+
+func testStringObject(t *testing.T, obj object.Object, expected string) bool {
+	result, ok := obj.(*object.String)
+	if !ok {
+		t.Errorf("object is not String. got=%T (%+v)", obj, obj)
+		return false
+	}
+
+	if result.Value != expected {
+		t.Errorf("object has wrong value. got=%q want=%q", result.Value, expected)
 		return false
 	}
 
